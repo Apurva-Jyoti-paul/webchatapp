@@ -1,0 +1,30 @@
+<style>
+    div.new {
+            font-size: 10px;
+    }
+    div.b {
+        text-align:right;
+    }
+</style>
+
+
+<h1 align="center">GROUP CHAT</h1>
+
+<p>
+    {% for i in m %}
+       <b>{{i.writer}}</b>:{{i.chattxt}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="new">{{i.time}}</div>
+        <br><br><br>
+    {% endfor %}
+</p>
+
+
+<form action="{% url 'send' %}" method="POST" enctype="multipart/form-data">
+
+<label>message:&nbsp;</label>
+{{ txt.chattxt }}
+{% csrf_token %}
+<input type="submit" value="send">
+
+
+</form>
