@@ -1,9 +1,10 @@
 <style>
     div.new {
             font-size: 10px;
+            color: cornflowerblue;
     }
-    div.b {
-        text-align:right;
+    div.a {
+        font-size: 20px;
     }
 </style>
 
@@ -12,9 +13,11 @@
 
 <p>
     {% for i in m %}
-       <b>{{i.writer}}</b>:{{i.chattxt}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="new">{{i.time}}</div>
-        <br><br><br>
+       
+            <div class="a"><b style="color: blueviolet;">{{i.writer}}</b>:<b>{{i.chattxt}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="new">{{i.time}}</div>
+            <br><br><br>   
+        
     {% endfor %}
 </p>
 

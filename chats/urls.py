@@ -6,4 +6,5 @@ urlpatterns=[
     path('send/',views.send,name='send'),
     path('home/',views.mainv,name='mainv'),
     path('create/',views.create,name='create'),
+    path('<key>/see/',views.see,name='see'),
 ]

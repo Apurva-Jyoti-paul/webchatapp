@@ -10,6 +10,15 @@ from .forms import txtform,groupform
 
 @login_required
 def send(request):
+    dod=wpgc.objects.filter(members=request.user)
+    cdod=dod.count()
+    print(cdod)
+    for j in dod:
+        lo=j.members.all()
+        ti=lo.count()
+        print(lo[0])
+        print(j.name)
+    
     if request.method=='POST':
         txt=txtform(request.POST)
         print('1')
@@ -27,6 +36,7 @@ def send(request):
             m=gchat.objects.order_by('time')
             txt=txtform()
             for i in m:
+                print(i.groups.id)
                 l=str(i.time)
                 day=''
                 ti=''
@@ -44,11 +54,13 @@ def send(request):
                         break
                 print(day)
                 print(ti)
+                r=request.user
+                print(r)
                
 
 
             m.reverse()
-            return render(request,'groupchat1.html',{'m':m,'txt':txt})
+            return render(request,'groupchat1.html',{'m':m,'txt':txt,'r':r})
     else:
         txt=txtform()
         m=gchat.objects.order_by('time')
@@ -59,8 +71,8 @@ def send(request):
 
 def mainv(request):
     a=wpgc.objects.filter(members=request.user)
-
-    return redirect(request,'main.html',{'a':a})
+    namu=str(request.user)
+    return render(request,'main.html',{'a':a,'namu':namu})
 
 @login_required
 def create(request):
@@ -68,14 +80,19 @@ def create(request):
         g=groupform(request.POST)
         if g.is_valid():
             l=g.save(commit=False)
+            l.save()
             l.members.add(request.user)
             l.save()
-            return redirect('/main.html')
+            return redirect('main.html')
     else:
         print('amd')
         form=groupform()
-        return redirect(request,'create.html',{'form':form})
+        return render(request,'create.html',{'form':form})
 
         
 
 # Create your views here.
+
+
+def see(request,key):
+    pass
