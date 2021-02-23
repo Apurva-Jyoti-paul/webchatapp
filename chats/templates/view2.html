@@ -1,0 +1,40 @@
+<style>
+    div.new {
+            font-size: 10px;
+            color: cornflowerblue;
+    }
+    div.a {
+        font-size: 20px;
+    }
+</style>
+
+
+<h1 align="center">GROUP CHAT</h1>
+
+<p align="right"><a href="{% url 'adduser' g %}">Add User</a></p>
+<br>
+<p align="right"><a href="{% url 'mainv' %}" >HOME</a></p>
+
+
+<form action="{% url 'see' g %}" method="POST" enctype="multipart/form-data">
+
+    <label>message:&nbsp;</label>
+    {{ t.chattxt }}
+    {% csrf_token %}
+    <input type="submit" value="send">
+    
+    
+</form>
+
+
+<p>
+    {% for i in b %}
+               
+            <div class="a"><b style="color: blueviolet;">{{i.writer}}</b>:<b>{{i.chattxt}}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="new">{{i.time}}</div>
+            <br><br><br>   
+        
+    {% endfor %}
+</p>
+
+

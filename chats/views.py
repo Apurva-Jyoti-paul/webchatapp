@@ -36,7 +36,7 @@ def send(request):
             m=gchat.objects.order_by('time')
             txt=txtform()
             for i in m:
-                print(i.groups.id)
+                print(i.groups)
                 l=str(i.time)
                 day=''
                 ti=''
@@ -95,4 +95,57 @@ def create(request):
 
 
 def see(request,key):
-    pass
+    print(type(key))
+    if request.method=='POST':
+        t=txtform(request.POST)
+        if t.is_valid():
+            j=t.save(commit=False)
+            t.writer=request.user
+            print('b')
+            a=wpgc.objects.get(id=key)
+            l=t.save(commit=False)
+            
+            l.groups=a
+            b=[]
+            print(l.groups.id)
+            l.save()
+            print(key)
+            print(a)
+            print(l.groups)
+            f=gchat.objects.order_by('time')
+
+            for i in f:
+                if str(i.groups.id)==key:
+                    b.append(i)
+            b.reverse()
+            return render(request,'view2.html',{'f':f,'t':t,'g':key,'b':b})
+    else:
+        t=txtform()
+        f=gchat.objects.order_by('time')
+        print('b')
+        b=[]
+        for i in f:
+            if str(i.groups.id)==key:
+                b.append(i)
+        
+        b.reverse()
+        return render(request,'view2.html',{'t':t,'f':f,'g':key,'b':b})
+
+
+
+@login_required
+def adduser(request,key):
+    a=User.objects.all()
+    c=key
+    return render(request,'adduser.html',{'a':a,'c':c})
+
+@login_required
+def add(request,key,c):
+    p=User.objects.get(id=key)
+    q=wpgc.objects.get(id=c)
+
+    q.members.add(p)
+
+    q.save()
+    return redirect('main.html')
+

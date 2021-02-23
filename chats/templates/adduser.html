@@ -1,0 +1,4 @@
+{% for i in a  %}
+    <b>USERNAME:</b><a href="{% url 'add' i.id c %}">{{i.username}}</a>
+{% endfor %}
+

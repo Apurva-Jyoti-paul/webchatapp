@@ -13,7 +13,7 @@ class gchat(models.Model):
     chattxt=models.CharField(max_length=1000)
     writer=models.ForeignKey(User,on_delete=models.CASCADE,default=1)
     time=models.DateTimeField(default=timezone.now)
-    groups=models.ForeignKey(wpgc,on_delete=models.CASCADE,default=1)
+    groups=models.ForeignKey(wpgc,on_delete=models.CASCADE)
 
 class profile(models.Model):
     status=models.TextField(max_length=1000)
